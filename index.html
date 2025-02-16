@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style-type: none;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .home {
+            background-color: #ffeb3b;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .products {
+            background-color: #fff;
+        }
+
+        .product-grid {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .product {
+            background-color: #f8f8f8;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product img {
+            max-width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .cart {
+            background-color: #fff;
+            display: none;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">MyStore</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Section (Home) -->
+    <section id="home" class="home">
+        <h1>Welcome to MyStore</h1>
+        <p>Your one-stop shop for everything!</p>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <h2>Our Products</h2>
+        <div class="product-grid">
+            <!-- Product 1 -->
+            <div class="product">
+                <img src="https://via.placeholder.com/150" alt="Product 1">
+                <h3>Product 1</h3>
+                <p>$19.99</p>
+                <button onclick="addToCart('Product 1', 19.99)">Add to Cart</button>
+            </div>
+            <!-- Product 2 -->
+            <div class="product">
+                <img src="https://via.placeholder.com/150" alt="Product 2">
+                <h3>Product 2</h3>
+                <p>$29.99</p>
+                <button onclick="addToCart('Product 2', 29.99)">Add to Cart</button>
+            </div>
+            <!-- Product 3 -->
+            <div class="product">
+                <img src="https://via.placeholder.com/150" alt="Product 3">
+                <h3>Product 3</h3>
+                <p>$39.99</p>
+                <button onclick="addToCart('Product 3', 39.99)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2>About Us</h2>
+        <p>We offer a wide variety of products that you will love!</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <p>Have questions? Reach out to us!</p>
+    </section>
+
+    <!-- Cart Section (Hidden initially) -->
+    <section id="cart" class="cart">
+        <h2>Your Cart</h2>
+        <ul id="cart-list"></ul>
+        <p id="total"></p>
+        <button onclick="checkout()">Checkout</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 MyStore. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let cart = [];
+
+        function addToCart(productName, productPrice) {
+            cart.push({ name: productName, price: productPrice });
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartList = document.getElementById("cart-list");
+            cartList.innerHTML = "";
+
+            let total = 0;
+            cart.forEach(item => {
+                const li = document.createElement("li");
+                li.textContent = `${item.name} - $${item.price}`;
+                cartList.appendChild(li);
+                total += item.price;
+            });
+
+            document.getElementById("total").textContent = `Total: $${total.toFixed(2)}`;
+
+            // Show cart if there are items
+            if (cart.length > 0) {
+                document.getElementById("cart").style.display = "block";
+            } else {
+                document.getElementById("cart").style.display = "none";
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+            } else {
+                alert("Proceeding to checkout...");
+            }
+        }
+    </script>
+</body>
+</html>
